@@ -1,41 +1,44 @@
 import java.util.Random;
 
 public class Enemigo {
+    private String nombre;
     private Posicion posicionActual;
     private static final int ARRIBA = 1;
     private static final int ABAJO = 2;
     private static final int DERECHA = 3;
     private static final int IZQUIERDA = 4;
 
-    public Enemigo(Posicion posicion){
-        this.posicionActual = posicion;
+    public Enemigo(String nombre) {
+        this.nombre = nombre;
         Random random = new Random();
         int filaAleatoria = random.nextInt(6);
-        this.posicionActual = new Posicion(filaAleatoria, 0);
+        int colAleatoria = random.nextInt(20);
+        this.posicionActual = new Posicion(filaAleatoria, colAleatoria);
     }
 
-    public void moverse(int direccion){
-
-        int Fila = posicionActual.getCoordenadaFila();
-        int Col = posicionActual.getCoordenadaCol();
+    public void moverse(char[][] tablero) {
+        Random random = new Random();
+        int direccion = random.nextInt(4) + 1;
+        int fila = posicionActual.getCoordenadaFila();
+        int col = posicionActual.getCoordenadaCol();
 
         switch (direccion) {
             case ARRIBA:
-                if (Fila > 0) Fila--;
+                if (fila > 0 && tablero[fila - 1][col] == ' ') fila--;
                 break;
             case ABAJO:
-                if (Fila < 5) Fila++;
+                if (fila < 5 && tablero[fila + 1][col] == ' ') fila++;
                 break;
             case DERECHA:
-                if (Col < 19) Col++;
+                if (col < 19 && tablero[fila][col + 1] == ' ') col++;
                 break;
             case IZQUIERDA:
-                if (Col > 0) Col--;
+                if (col > 0 && tablero[fila][col - 1] == ' ') col--;
                 break;
         }
 
-        posicionActual.setCoordenadaFila(Fila);
-        posicionActual.setCoordenadaCol(Col);
+        posicionActual.setCoordenadaFila(fila);
+        posicionActual.setCoordenadaCol(col);
     }
 
     public void setPosicionActual(Posicion posicionActual){
