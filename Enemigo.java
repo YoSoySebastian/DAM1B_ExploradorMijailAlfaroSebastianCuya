@@ -3,10 +3,6 @@ import java.util.Random;
 public class Enemigo {
     private String nombre;
     private Posicion posicionActual;
-    private static final int ARRIBA = 1;
-    private static final int ABAJO = 2;
-    private static final int DERECHA = 3;
-    private static final int IZQUIERDA = 4;
 
     public Enemigo(String nombre) {
         this.nombre = nombre;
@@ -23,16 +19,16 @@ public class Enemigo {
         int col = posicionActual.getCoordenadaCol();
 
         switch (direccion) {
-            case ARRIBA:
+            case 1:
                 if (fila > 0 && tablero[fila - 1][col] == ' ') fila--;
                 break;
-            case ABAJO:
+            case 2:
                 if (fila < 5 && tablero[fila + 1][col] == ' ') fila++;
                 break;
-            case DERECHA:
+            case 3:
                 if (col < 19 && tablero[fila][col + 1] == ' ') col++;
                 break;
-            case IZQUIERDA:
+            case 4:
                 if (col > 0 && tablero[fila][col - 1] == ' ') col--;
                 break;
         }
@@ -41,11 +37,7 @@ public class Enemigo {
         posicionActual.setCoordenadaCol(col);
     }
 
-    public void setPosicionActual(Posicion posicionActual){
-        this.posicionActual = posicionActual;
-    }
-
-    public Posicion getPosicionActual() {
-        return posicionActual;
+    public Posicion getPosicion() {
+        return this.posicionActual;
     }
 }

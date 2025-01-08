@@ -1,52 +1,41 @@
-import java.util.Random;
-
 public class Explorador {
     private String nombre;
-    private Posicion posicionActual;
-    private static final int ARRIBA = 1;
-    private static final int ABAJO = 2;
-    private static final int DERECHA = 3;
-    private static final int IZQUIERDA = 4;
+    private Posicion posicion;
 
-    public Explorador(String nombre){
+    public static final String ARRIBA = "W";
+    public static final String ABAJO = "S";
+    public static final String DERECHA = "D";
+    public static final String IZQUIERDA = "A";
+
+    public Explorador(String nombre) {
         this.nombre = nombre;
-        Random random = new Random();
-        int filaAleatoria = random.nextInt(6);
-        this.posicionActual = new Posicion(filaAleatoria, 0);
+        int filaAleatoria = (int) (Math.random() * 6);
+        this.posicion = new Posicion(filaAleatoria, 0);
     }
 
-    public String getNombre() {
-        return nombre;
+    public Posicion getPosicion() {
+        return this.posicion;
     }
 
-    public Posicion getPosicionActual() {
-        return posicionActual;
-    }
-
-    public void setPosicionActual(Posicion posicionActual) {
-        this.posicionActual = posicionActual;
-    }
-
-    public void moverse(int direccion){
-        int Fila = posicionActual.getCoordenadaFila();
-        int Col = posicionActual.getCoordenadaCol();
+    public void moverse(String direccion, char[][] mapa) {
+        int nuevaFila = posicion.getCoordenadaFila();
+        int nuevaCol = posicion.getCoordenadaCol();
 
         switch (direccion) {
             case ARRIBA:
-                if (Fila > 0) Fila--;
+                if (nuevaFila > 0) nuevaFila--;
                 break;
             case ABAJO:
-                if (Fila < 5) Fila++;
+                if (nuevaFila < 5) nuevaFila++;
                 break;
             case DERECHA:
-                if (Col < 19) Col++;
+                if (nuevaCol < 19) nuevaCol++;
                 break;
             case IZQUIERDA:
-                if (Col > 0) Col--;
+                if (nuevaCol > 0) nuevaCol--;
                 break;
         }
-
-        posicionActual.setCoordenadaFila(Fila);
-        posicionActual.setCoordenadaCol(Col);
+        posicion.setCoordenadaFila(nuevaFila);
+        posicion.setCoordenadaCol(nuevaCol);
     }
 }
